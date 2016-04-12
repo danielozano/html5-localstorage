@@ -4,19 +4,30 @@
 	var clearBtn = document.getElementById('clear');
 	var content = document.getElementById('content');
 	var containerRow = document.getElementById('container-row');
-	var mainRow = document.getElementById('main-row');
 
 	// TODO: primero rellenar contenido en función del contenido de localstorage
-	// TODO: añadir elementos al contenido de localstorage
 	// TODO: modificar elementos existentes en localstorage
 	// TODO: eliminar elementos del localstorage
-	for (var i = 0; i < localStorage.length; i++) {
-		console.log(localStorage.getItem(localStorage.key(i)));
-	}
 
+	// pintar cada elemento dentro de un contenedor
+	var renderItems = function(container) {
+		for (var i = 0; i < localStorage.length; i++) {
+			var element = document.createElement('p');
+			var storageItem = localStorage.getItem(localStorage.key(i));
+
+			console.log(storageItem);
+
+			element.innerHTML = i + " - " + storageItem;
+			containerRow.appendChild(element);
+		}
+	};
+
+	renderItems(content);
+
+	// Añadir el elemento a localstorage y pintarlo.
 	var addItem = function(key, value) {
 		localStorage.setItem(key, value);
-		// TODO: pintar de nuevo listado de elementos
+
 		// TODO: generar estructura de elemento
 		var element = document.createElement('p');
 		element.innerHTML = value;
@@ -36,8 +47,15 @@
 
 		var order = document.getElementsByName('order');
 		var storageValue = document.getElementsByName('value');
+		var orderValue = order[0].value
+		
+		if (orderValue === '') {
+			// obtener el la última key
+			orderValue = localStorage.length;
+		}
 
-		addItem(order[0].value, storageValue[0].value);
+		addItem(orderValue, storageValue[0].value);
+
 		order[0].value = null;
 		storageValue[0].value = null;
 	});
