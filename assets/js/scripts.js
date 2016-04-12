@@ -1,14 +1,15 @@
 (function() {
 	var localStorage = window.localStorage;
 	var addBtn = document.getElementById('add');
+	var clearBtn = document.getElementById('clear');
 	var content = document.getElementById('content');
+	var containerRow = document.getElementById('container-row');
 	var mainRow = document.getElementById('main-row');
 
 	// TODO: primero rellenar contenido en función del contenido de localstorage
 	// TODO: añadir elementos al contenido de localstorage
 	// TODO: modificar elementos existentes en localstorage
 	// TODO: eliminar elementos del localstorage
-
 	for (var i = 0; i < localStorage.length; i++) {
 		console.log(localStorage.getItem(localStorage.key(i)));
 	}
@@ -19,11 +20,18 @@
 		// TODO: generar estructura de elemento
 		var element = document.createElement('p');
 		element.innerHTML = value;
+		containerRow.appendChild(element);
 		// Añadir elemento justo antes de la fila de inputs
-		content.insertBefore(element, mainRow);
+		//content.insertBefore(element, mainRow);
 		return true;
 	}
 
+	// Añadir botón para limpiar
+	clearBtn.addEventListener('click', function(e) {
+		e.preventDefault();
+		localStorage.clear();
+		containerRow.innerHTML = '';
+	});
 	// Añadir elementos al contenido
 	addBtn.addEventListener('click', function(e) {
 		e.preventDefault();
