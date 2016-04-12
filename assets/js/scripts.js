@@ -21,10 +21,7 @@
 		var element = document.createElement('p');
 		element.innerHTML = value;
 		containerRow.appendChild(element);
-		// Añadir elemento justo antes de la fila de inputs
-		//content.insertBefore(element, mainRow);
-		return true;
-	}
+	};
 
 	// Añadir botón para limpiar
 	clearBtn.addEventListener('click', function(e) {
@@ -32,13 +29,19 @@
 		localStorage.clear();
 		containerRow.innerHTML = '';
 	});
+
 	// Añadir elementos al contenido
 	addBtn.addEventListener('click', function(e) {
 		e.preventDefault();
+
 		var order = document.getElementsByName('order');
-		var storageValue = document.getElementsByName('value');;
+		var storageValue = document.getElementsByName('value');
+
 		addItem(order[0].value, storageValue[0].value);
+		order[0].value = null;
+		storageValue[0].value = null;
 	});
+
 	// Añadir keyup event para guardar elementos al pulsar enter
 	window.addEventListener('keyup', function(e) {
 		if (e.keyCode === 13) {
