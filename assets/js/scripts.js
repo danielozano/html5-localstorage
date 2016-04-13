@@ -11,27 +11,18 @@
 
 	// pintar cada elemento dentro de un contenedor
 	var renderItems = function(container) {
+		// limpiar contenido y pintarlo de nuevo
+		container.innerHTML = '';
 		for (var i = 0; i < localStorage.length; i++) {
 			var element = document.createElement('p');
 			var storageItem = localStorage.getItem(localStorage.key(i));
 
-			console.log(storageItem);
+			// añadir estructura HTML a los elementos
+			element.className += 'storage-item';
+			element.innerHTML = "<span class='index'>" + i + "</span> <span class='body'>" + storageItem + "</span>";
 
-			element.innerHTML = i + " - " + storageItem;
-			containerRow.appendChild(element);
-		}
-	};
-
-	renderItems(content);
-
-	// Añadir el elemento a localstorage y pintarlo.
-	var addItem = function(key, value) {
-		localStorage.setItem(key, value);
-
-		// TODO: generar estructura de elemento
-		var element = document.createElement('p');
-		element.innerHTML = value;
-		containerRow.appendChild(element);
+			container.appendChild(element);
+		};
 	};
 
 	// Añadir botón para limpiar
@@ -53,8 +44,9 @@
 			// obtener el la última key
 			orderValue = localStorage.length;
 		}
+		localStorage.setItem(orderValue, storageValue[0].value);
 
-		addItem(orderValue, storageValue[0].value);
+		renderItems(containerRow);
 
 		order[0].value = null;
 		storageValue[0].value = null;
@@ -67,4 +59,6 @@
 			addBtn.click();
 		}
 	});
+
+	renderItems(containerRow);
 }());
