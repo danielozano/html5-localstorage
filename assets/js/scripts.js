@@ -8,7 +8,6 @@
 
 	if (localStorage.getItem('list') != undefined &&
 		localStorage.getItem('list') != '') {
-		console.log(localStorage.getItem('list'));
 		list = JSON.parse(localStorage.getItem('list'));
 	};
 
@@ -26,7 +25,7 @@
 		container.innerHTML = '';
 		// TODO: este bucle no sirve para recorrer los elementos de un objeto pls... guardar un array dentro de un objeto actualizar dicho array.
 		for (var i = 0; i < list.length; i++) {
-			var element = document.createElement('p');
+			var element = document.createElement('li');
 
 			// añadir estructura HTML a los elementos
 			element.className += 'storage-item';
@@ -45,11 +44,10 @@
 				// obtener el padre
 				var parent = this.parentNode;
 				var childrens = parent.childNodes;
-				var index = list.indexOf(childrens[2].innerText);
-
-				list.splice(index, 1);
+				var index = childrens[0].innerText;
 				
-				console.log(list);
+				list.splice(index, 1);
+
 				localStorage.setItem('list', JSON.stringify(list));
 				renderItems(containerRow);
 			});
